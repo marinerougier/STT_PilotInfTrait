@@ -402,7 +402,7 @@ var check_consent = function(elem) {
 
 var consent = {
   type:'external-html',
-  url: "https://marinerougier.github.io/STT_Pilot/external_page_consent.html",
+  url: "https://marinerougier.github.io/STT_PilotSpontInf/external_page_consent.html",
   cont_btn: "start",
   check_fn: check_consent
 };
@@ -731,9 +731,9 @@ var languageOptions = ['Native speaker', 'Very well', 'Well', 'Average', 'Badly'
   debrief += "<a href='https://app.prolific.co/submissions/complete?cc=1848E97F' target='_blank'>click here</a>";
 
   /* TIMELINES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  //timeline.push(activeFullscreen,
-  //              consent,
-  //              Quit_expe);
+  timeline.push(activeFullscreen,
+                consent,
+                Quit_expe);
 
 
 
