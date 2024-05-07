@@ -408,7 +408,7 @@ var consent = {
 };
 
   /* General INSTRUCTIONS */
-
+ /*
   var Quit_expe = {
     type: "html-keyboard-response",
     post_trial_gap: 300,
@@ -427,6 +427,7 @@ var consent = {
       return html;
     },
   };
+*/ 
 
   var Instr_gene0 = {
     type: "html-keyboard-response",
@@ -450,8 +451,8 @@ var consent = {
     stimulus: function() {
       var html = "";
       html += "<h1>Study on person perception</h1>";
-      html += "<p class='justify'>Your task is to <b>look carefully at all the information provided on the screen </b>(the person on the photograph and the behavioral description) and to <b>imagine how <u>the person on the photograph</u> could be like.</b><br><br>";
-      html += "More specifically, your task will be to be creative and imagine <b><u>which personality trait the person in the photograph might possess</b></u>. You will have to provide one trait at each trial. </b><br><br>";
+      html += "<p class='justify'>Your task is to <b>look carefully at all the information provided on the screen </b>(the person on the photograph and the behavioral description) and to <b>imagine what <u>the person on the photograph</u> could be like.</b><br><br>";
+      html += "More specifically, your task will be to be creative and imagine <b><u>which personality traits the person in the photograph might possess</b></u>. You will have to provide at least one trait at each trial. </b><br><br>";
       html += "It is very important that you answer honestly, based on what you truly think. <br><br> ";
       html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to start the task</p>";
       return html;
@@ -480,9 +481,9 @@ var behav_rel = {
         html += rightImg ;
         return html;
       },
-      questions: [{prompt: "Base on the above information, indicate which personality trait the person in the photograph might possess: (indicate <b>one trait</b>)", required: true}],
+      questions: [{prompt: "Base on the above information, indicate which personality traits the person in the photograph might possess: (indicate <b>at least one trait</b>)", rows: 3, columns: 60, required: true}],
       button_label: "continue",
-      /*
+   	/*
       conditional_function: function(data){
                       // get the data from the previous trial,
                       // and push the question only if 'yes' response
@@ -490,15 +491,14 @@ var behav_rel = {
                       res1 = JSON.parse(res1).Q0;
                       console.log(res1);
                       if(res1 === ""){
-                          alert("Please answer the question");
-                      } else {
-                          return false;
+                      	alert("Please answer the question");
+                      	return true;
                       }
                   }
-        */
+       */
         loop_function: function (data) {
-        	var res = jsPsych.data.get().last(1).values()[0].responses;
-            //var res = data.values()[0].responses;
+        	//var res = jsPsych.data.get().last(1).values()[0].responses;
+            var res = data.values()[0].responses;
             var res = JSON.parse(res).Q0;
             if (res == "") {
                 alert("Please answer the question");
@@ -541,6 +541,7 @@ var behav_rel = {
         },
     };
 
+/*
    var demand_compliance = {
       type: 'survey-multi-choice',
       questions: [{prompt: "When we asked you to guess the personality of the person on the photograph, did you tell us the truth about what you think? Or did you just fake your response (i.e., tell us what you thought we wanted to hear)? Please be honest here (it will not affect payment in any way).", options: ['Yes - I faked my response based on what I thought the researchers wanted to find', 'No - my responses were based on how I genuinely felt', 'I do not know'], required: true}],
@@ -556,7 +557,7 @@ var behav_rel = {
           });
       },
   };
-
+*/
 
   var influence_behavior_awareness = {
       type: 'survey-multi-choice',
@@ -732,8 +733,7 @@ var languageOptions = ['Native speaker', 'Very well', 'Well', 'Average', 'Badly'
 
   /* TIMELINES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   timeline.push(activeFullscreen,
-                consent,
-                Quit_expe);
+                consent);
 
 
 
@@ -741,7 +741,6 @@ var languageOptions = ['Native speaker', 'Very well', 'Well', 'Average', 'Badly'
                 Instr_gene1,
                 behav_rel,
                 demand_awareness,
-                demand_compliance,
                 influence_behavior_awareness,
                 {
                   timeline: [influence_behavior_specific],
