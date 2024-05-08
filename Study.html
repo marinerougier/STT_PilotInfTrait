@@ -479,9 +479,12 @@ var behav_rel = {
         html = '';
         html += leftImg ;
         html += rightImg ;
+        html += '<br><br><br>Base on the above information, indicate in the response boxes below <b>which personality traits the person in the photograph </b>might possess: (indicate <b>at least one trait</b>)';
         return html;
       },
-      questions: [{prompt: "Base on the above information, indicate which personality traits the person in the photograph might possess: (indicate <b>at least one trait</b> and separate each answer with a <b>comma</b>)", rows: 3, columns: 60, required: true}],
+      questions: [{prompt: "", required: true},
+                  {prompt: "", required: true},
+                  {prompt: "", required: true}],
       button_label: "continue",
    	/*
       conditional_function: function(data){
@@ -515,9 +518,58 @@ var behav_rel = {
         data.Traits = jsPsych.timelineVariable('Traits', true);
         data.FacesGender = jsPsych.timelineVariable('Faces_gender', true);
         var parsed_response  = JSON.parse(data.responses);
+        data.trait1    = parsed_response.Q0;
+        data.trait2    = parsed_response.Q1;
+        data.trait3    = parsed_response.Q2;
+      },
+  };
+
+/*
+var behav_rel = {
+    timeline_variables: stims,
+    randomize_order: true,
+    timeline: [{
+      type: 'survey-text',
+      preamble: function () {
+        if (jsPsych.timelineVariable('Faces_gender', true) == "male") {
+          var leftImg = jsPsych.timelineVariable('Faces', true);
+          var target_trait = jsPsych.timelineVariable('Traits', true);
+          var rightImg = jsPsych.timelineVariable('Trait_sentences_females', true);
+        } else {
+          var leftImg = jsPsych.timelineVariable('Faces', true);
+          var target_trait = jsPsych.timelineVariable('Traits', true);
+          var rightImg = jsPsych.timelineVariable('Trait_sentences_males', true);
+        };
+        html = '';
+        html += leftImg ;
+        html += rightImg ;
+        return html;
+      },
+      questions: [{prompt: "Base on the above information, indicate which personality traits the person in the photograph might possess: (indicate <b>at least one trait</b> and separate each answer with a <b>comma</b>)", rows: 3, columns: 60, required: true}],
+      button_label: "continue",
+        loop_function: function (data) {
+        	//var res = jsPsych.data.get().last(1).values()[0].responses;
+            var res = data.values()[0].responses;
+            var res = JSON.parse(res).Q0;
+            if (res == "") {
+                alert("Please answer the question");
+                return true;
+            }
+        },
+        }],
+      on_finish: function (data) {
+        $('.jspsych-content').css({ "max-width": "90%" });
+        data.task = "behav_rel";
+        data.Faces = jsPsych.timelineVariable('Faces', true);
+        data.SentFemale = jsPsych.timelineVariable('Trait_sentences_females', true);
+        data.SentMale = jsPsych.timelineVariable('Trait_sentences_males', true);
+        data.Traits = jsPsych.timelineVariable('Traits', true);
+        data.FacesGender = jsPsych.timelineVariable('Faces_gender', true);
+        var parsed_response  = JSON.parse(data.responses);
         data.diagnosticity    = parsed_response.Q0;
       },
   };
+  */
 
   /* Exploratory questions */
   var demand_awareness = {
@@ -732,8 +784,8 @@ var languageOptions = ['Native speaker', 'Very well', 'Well', 'Average', 'Badly'
   debrief += "<a href='https://app.prolific.co/submissions/complete?cc=1848E97F' target='_blank'>click here</a>";
 
   /* TIMELINES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  timeline.push(activeFullscreen,
-                consent);
+  //timeline.push(activeFullscreen,
+  //              consent);
 
 
 
